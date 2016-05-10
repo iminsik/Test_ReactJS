@@ -1,0 +1,22 @@
+{
+  "name": "insik.cho",
+  "version": "1.0.0",
+  "description": "Pull PNR info through GDS Reservation Service and purchase EMD seat through EMD Ticketing Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Just testing\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://itsals.visualstudio.com/AlaskaAirCom/_git/Insik.Cho"
+  },
+  "keywords": [],
+  "author": "Insik Cho",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.5",
+    "express": "^4.13.4",
+    "node-fetch": "^1.5.2",
+    "node-rest-client": "^1.8.0"
+  }
+}
