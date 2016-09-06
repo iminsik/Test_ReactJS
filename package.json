@@ -1,7 +1,7 @@
 {
-  "name": "insik.cho",
+  "name": "reactboilerplate",
   "version": "1.0.0",
-  "description": "Pull PNR info through GDS Reservation Service and purchase EMD seat through EMD Ticketing Service",
+  "description": "Simple react app",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Just testing\" && exit 1"
