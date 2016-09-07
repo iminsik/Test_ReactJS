@@ -7,7 +7,7 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
-
+      AlaskaAirHomepage: 'app/components/AlaskaAirHomepage.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },

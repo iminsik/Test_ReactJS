@@ -1,8 +1,10 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const AlaskaAirHomepage = require('AlaskaAirHomepage');
 
 ReactDOM.render(
-  <h1>Boiler Plate App!</h1>,
+  <AlaskaAirHomepage name="Alaska" city="Portland" />,
   document.getElementById('app')
 );
 
+  
