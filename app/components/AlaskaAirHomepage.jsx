@@ -1,5 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const Header = require('Header')
 const NameCityForm = require('./NameCityForm');
 
 const AlaskaAirHomepage = React.createClass({
@@ -22,6 +23,7 @@ const AlaskaAirHomepage = React.createClass({
     render: function() {
         return (
             <div>
+                <Header />
                 <h1 className='jumbotron text-center'>Hello, {this.state.name} @ {this.state.city}!</h1>
                 <NameCityForm updateNameCity={this.updateNameCity} />
             </div>
