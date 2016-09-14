@@ -27815,39 +27815,19 @@
 	var Nav = __webpack_require__(/*! Nav */ 236);
 	var NameCityForm = __webpack_require__(/*! ./NameCityForm */ 237);
 	
-	var AlaskaAirHomepage = React.createClass({
-	    displayName: 'AlaskaAirHomepage',
-	
-	    updateNameCity: function updateNameCity(name, city) {
-	        this.setState({ name: name });
-	        this.setState({ city: city });
-	    },
-	    getDefaultProps: function getDefaultProps() {
-	        return {
-	            name: 'Insik',
-	            city: 'Seattle'
-	        };
-	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            name: this.props.name,
-	            city: this.props.city
-	        };
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
+	var AlaskaAirHomepage = function AlaskaAirHomepage(props) {
+	    return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(Nav, null),
+	        React.createElement(
+	            'h2',
 	            null,
-	            React.createElement(Nav, null),
-	            React.createElement(
-	                'h2',
-	                null,
-	                'Main Component'
-	            ),
-	            this.props.children
-	        );
-	    }
-	});
+	            'Main Component'
+	        ),
+	        props.children
+	    );
+	};
 	
 	module.exports = AlaskaAirHomepage;
 
@@ -28095,9 +28075,8 @@
 	var React = __webpack_require__(/*! react */ 1);
 	
 	module.exports = function (props) {
-	  var _props = undefined.props;
-	  var temp = _props.temp;
-	  var location = _props.location;
+	  var temp = props.temp;
+	  var location = props.location;
 	
 	  return React.createElement(
 	    'div',
