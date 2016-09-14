@@ -15,7 +15,7 @@ module.exports = React.createClass({
     OpenWeatherMap.getTemp(location).then(function(temp) {
       that.setState({location: location, temp: temp})
     }, function(errorMessage) {
-      alert(errMessage);
+      console.error(errorMessage);
     });
   },
   render: function() {
