@@ -1,8 +1,9 @@
 var express = require('express');
+var favicon = require('serve-favicon');
 var app = express();
-//Add some commentsssss
 const PORT = process.env.PORT || 3000;
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(function(req, res, next) {
   if(req.headers['x-forwarded-proto'] === 'http') {
     next();

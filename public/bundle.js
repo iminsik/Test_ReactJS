@@ -28074,9 +28074,9 @@
 	
 	var React = __webpack_require__(/*! react */ 1);
 	
-	module.exports = function (props) {
-	  var temp = props.temp;
-	  var location = props.location;
+	module.exports = function (_ref) {
+	  var temp = _ref.temp;
+	  var location = _ref.location;
 	
 	  return React.createElement(
 	    'div',
