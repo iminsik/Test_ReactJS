@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Just testing\" && exit 1",
     "webpack": "webpack -d",
-    "run": "node ./server.js" 
+    "start": "node ./server.js" 
   },
   "repository": {
     "type": "git",
