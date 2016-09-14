@@ -27868,43 +27868,37 @@
 	var IndexLink = _require.IndexLink;
 	
 	
-	var Nav = React.createClass({
-	  displayName: 'Nav',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
+	module.exports = function (props) {
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h2',
 	      null,
-	      React.createElement(
-	        'h2',
-	        null,
-	        'Nav Component'
-	      ),
-	      React.createElement(
-	        IndexLink,
-	        { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	        'Weather'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/About', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	        'About'
-	      ),
-	      React.createElement(
-	        Link,
-	        { to: '/Example', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	        'Example'
-	      ),
-	      React.createElement(
-	        'a',
-	        { href: '#/about' },
-	        'Go To About'
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Nav;
+	      'Nav Component'
+	    ),
+	    React.createElement(
+	      IndexLink,
+	      { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	      'Weather'
+	    ),
+	    React.createElement(
+	      Link,
+	      { to: '/About', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	      'About'
+	    ),
+	    React.createElement(
+	      Link,
+	      { to: '/Example', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
+	      'Example'
+	    ),
+	    React.createElement(
+	      'a',
+	      { href: '#/about' },
+	      'Go To About'
+	    )
+	  );
+	};
 
 /***/ },
 /* 237 */
@@ -28100,29 +28094,25 @@
 	
 	var React = __webpack_require__(/*! react */ 1);
 	
-	module.exports = React.createClass({
-	  displayName: 'exports',
+	module.exports = function (props) {
+	  var _props = undefined.props;
+	  var temp = _props.temp;
+	  var location = _props.location;
 	
-	  render: function render() {
-	    var _props = this.props;
-	    var temp = _props.temp;
-	    var location = _props.location;
-	
-	    return React.createElement(
-	      'div',
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h3',
 	      null,
-	      React.createElement(
-	        'h3',
-	        null,
-	        'It\'s it ',
-	        temp,
-	        ' in ',
-	        location,
-	        '.'
-	      )
-	    );
-	  }
-	});
+	      'It\'s it ',
+	      temp,
+	      ' in ',
+	      location,
+	      '.'
+	    )
+	  );
+	};
 
 /***/ },
 /* 241 */
@@ -29575,21 +29565,17 @@
 	
 	var React = __webpack_require__(/*! react */ 1);
 	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
+	module.exports = function (props) {
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h1',
 	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'About Component'
-	      )
-	    );
-	  }
-	});
+	      'About Component'
+	    )
+	  );
+	};
 
 /***/ },
 /* 265 */
@@ -29602,21 +29588,17 @@
 	
 	var React = __webpack_require__(/*! react */ 1);
 	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
+	module.exports = function (props) {
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'h1',
 	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Example Component'
-	      )
-	    );
-	  }
-	});
+	      'Example Component'
+	    )
+	  );
+	};
 
 /***/ }
 /******/ ]);
