@@ -27860,7 +27860,7 @@
 	    React.createElement(
 	      IndexLink,
 	      { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
-	      'Weather'
+	      'Weather...'
 	    ),
 	    React.createElement(
 	      Link,
@@ -28077,7 +28077,6 @@
 	module.exports = function (_ref) {
 	  var temp = _ref.temp;
 	  var location = _ref.location;
-	
 	  return React.createElement(
 	    'div',
 	    null,
