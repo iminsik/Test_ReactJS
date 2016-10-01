@@ -1,8 +1,9 @@
 const React = require('react');
 
 module.exports = (props) => 
-(
-  <div>
-    <h1>Example Component</h1>
-  </div>
-);
+  (
+    <div>
+      <h1>Examples</h1>
+      <p>Welcome to examples page!</p>  
+    </div>
+  );

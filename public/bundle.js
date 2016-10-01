@@ -28077,6 +28077,7 @@
 	module.exports = function (_ref) {
 	  var temp = _ref.temp;
 	  var location = _ref.location;
+	
 	  return React.createElement(
 	    'div',
 	    null,
@@ -29573,7 +29574,12 @@
 	    React.createElement(
 	      'h1',
 	      null,
-	      'Example Component'
+	      'Examples'
+	    ),
+	    React.createElement(
+	      'p',
+	      null,
+	      'Welcome to examples page!'
 	    )
 	  );
 	};
