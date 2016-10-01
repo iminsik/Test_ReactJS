@@ -28077,7 +28077,6 @@
 	module.exports = function (_ref) {
 	  var temp = _ref.temp;
 	  var location = _ref.location;
-	
 	  return React.createElement(
 	    'div',
 	    null,
@@ -29552,6 +29551,11 @@
 	      'h1',
 	      null,
 	      'About Component'
+	    ),
+	    React.createElement(
+	      'p',
+	      null,
+	      'Please, this is an About paragraph.'
 	    )
 	  );
 	};
