@@ -29705,30 +29705,30 @@
 	    React.createElement(
 	      "p",
 	      null,
-	      "Here are some of the tools I used:",
+	      "Here are some of the tools I used:"
+	    ),
+	    React.createElement(
+	      "ul",
+	      null,
 	      React.createElement(
-	        "ul",
+	        "li",
 	        null,
 	        React.createElement(
-	          "li",
-	          null,
-	          React.createElement(
-	            "a",
-	            { href: "https://facebook.github.io/react" },
-	            "React"
-	          ),
-	          " - This was the Javascript framework used."
+	          "a",
+	          { href: "https://facebook.github.io/react" },
+	          "React"
 	        ),
+	        " - This was the Javascript framework used."
+	      ),
+	      React.createElement(
+	        "li",
+	        null,
 	        React.createElement(
-	          "li",
-	          null,
-	          React.createElement(
-	            "a",
-	            { href: "http://openweathermap.org" },
-	            "Open Weather Map"
-	          ),
-	          " - I used Open Weather Map to search for weather data by city name."
-	        )
+	          "a",
+	          { href: "http://openweathermap.org" },
+	          "Open Weather Map"
+	        ),
+	        " - I used Open Weather Map to search for weather data by city name."
 	      )
 	    )
 	  );
