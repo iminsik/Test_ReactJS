@@ -28082,7 +28082,7 @@
 	                    null,
 	                    React.createElement(
 	                        'button',
-	                        { onClick: this.handleSubmit },
+	                        { className: 'button', onClick: this.handleSubmit },
 	                        'Change Name'
 	                    )
 	                )
@@ -28137,7 +28137,7 @@
 	      if (isLoading) {
 	        return React.createElement(
 	          'h3',
-	          null,
+	          { className: 'text-center' },
 	          'Fetching weather...'
 	        );
 	      } else if (temp && location) {
@@ -28150,8 +28150,8 @@
 	      null,
 	      React.createElement(
 	        'h1',
-	        null,
-	        'Weather Component'
+	        { className: 'text-center' },
+	        'Get Weather'
 	      ),
 	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
 	      renderMessage()
@@ -28199,7 +28199,7 @@
 	          null,
 	          React.createElement(
 	            'button',
-	            null,
+	            { className: 'button expanded hollow' },
 	            'Get Weather'
 	          )
 	        )
@@ -28215,7 +28215,7 @@
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	var React = __webpack_require__(/*! react */ 8);
 	
@@ -28223,16 +28223,16 @@
 	  var temp = _ref.temp;
 	  var location = _ref.location;
 	  return React.createElement(
-	    'div',
+	    "div",
 	    null,
 	    React.createElement(
-	      'h3',
-	      null,
-	      'It\'s it ',
+	      "h3",
+	      { className: "text-center" },
+	      "It's it ",
 	      temp,
-	      ' in ',
+	      " in ",
 	      location,
-	      '.'
+	      "."
 	    )
 	  );
 	};
