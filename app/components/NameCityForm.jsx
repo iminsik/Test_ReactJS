@@ -19,7 +19,7 @@ const NameCityForm = React.createClass({
                 <form onSubmit={this.handleSubmit}>
                     <div><label>Name <input type="text" ref="name" /></label></div>
                     <div><label>City <input type="text" ref="city" /></label></div>
-                    <div><button className="button" onClick={this.handleSubmit}>Change Name</button></div>
+                    <div><button onClick={this.handleSubmit}>Change Name</button></div>
                 </form>
             </div>
         );
