@@ -127,12 +127,14 @@
 	
 	var AlaskaAirHomepage = __webpack_require__(/*! AlaskaAirHomepage */ 242);
 	var Weather = __webpack_require__(/*! Weather */ 245);
-	var About = __webpack_require__(/*! About */ 271);
-	var Example = __webpack_require__(/*! Example */ 272);
+	var About = __webpack_require__(/*! About */ 272);
+	var Example = __webpack_require__(/*! Example */ 273);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 273);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 274);
 	$(document).foundation();
+	
+	__webpack_require__(/*! style!css!applicationStyles */ 278);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27994,7 +27996,7 @@
 	            React.createElement(
 	              'li',
 	              null,
-	              React.createElement('input', { type: 'search', placeholder: 'Search Weather' })
+	              React.createElement('input', { type: 'search', placeholder: 'Search Weather by City' })
 	            ),
 	            React.createElement(
 	              'li',
@@ -28107,7 +28109,7 @@
 	var WeatherMessage = __webpack_require__(/*! WeatherMessage */ 247);
 	var OpenWeatherMap = __webpack_require__(/*! OpenWeatherMap */ 248);
 	
-	var ErrorModal = __webpack_require__(/*! ErrorModal */ 277);
+	var ErrorModal = __webpack_require__(/*! ErrorModal */ 271);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -28165,7 +28167,7 @@
 	      null,
 	      React.createElement(
 	        'h1',
-	        { className: 'text-center' },
+	        { className: 'text-center page-title' },
 	        'Get Weather'
 	      ),
 	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
@@ -28208,7 +28210,7 @@
 	        React.createElement(
 	          'div',
 	          null,
-	          React.createElement('input', { type: 'text', ref: 'location' })
+	          React.createElement('input', { type: 'search', ref: 'location', placeholder: 'Search weather by city' })
 	        ),
 	        React.createElement(
 	          'div',
@@ -29695,6 +29697,67 @@
 
 /***/ },
 /* 271 */
+/*!***************************************!*\
+  !*** ./app/components/ErrorModal.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	
+	var React = __webpack_require__(/*! react */ 8);
+	
+	var ErrorModal = React.createClass({
+	  displayName: 'ErrorModal',
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      title: 'Error'
+	    };
+	  },
+	  propTypes: {
+	    title: React.PropTypes.string,
+	    message: React.PropTypes.string.isRequired
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var modal = new Foundation.Reveal($('#error-modal'));
+	    modal.open();
+	  },
+	  render: function render() {
+	    var _props = this.props;
+	    var title = _props.title;
+	    var message = _props.message;
+	
+	    return React.createElement(
+	      'div',
+	      { id: 'error-modal', className: 'reveal tiny text-center', 'data-reveal': '' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        title
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        message
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        React.createElement(
+	          'button',
+	          { className: 'button hollow', 'data-close': '' },
+	          'Okay'
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = ErrorModal;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! jquery */ 7)))
+
+/***/ },
+/* 272 */
 /*!**********************************!*\
   !*** ./app/components/About.jsx ***!
   \**********************************/
@@ -29710,7 +29773,7 @@
 	    null,
 	    React.createElement(
 	      "h1",
-	      { className: "text-center" },
+	      { className: "text-center page-title" },
 	      "About"
 	    ),
 	    React.createElement(
@@ -29751,7 +29814,7 @@
 	};
 
 /***/ },
-/* 272 */
+/* 273 */
 /*!************************************!*\
   !*** ./app/components/Example.jsx ***!
   \************************************/
@@ -29772,7 +29835,7 @@
 	    null,
 	    React.createElement(
 	      'h1',
-	      { className: 'text-center' },
+	      { className: 'text-center page-title' },
 	      'Examples'
 	    ),
 	    React.createElement(
@@ -29806,7 +29869,7 @@
 	};
 
 /***/ },
-/* 273 */
+/* 274 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -29815,10 +29878,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 274);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 275);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 276)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 277)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29835,13 +29898,13 @@
 	}
 
 /***/ },
-/* 274 */
+/* 275 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 275)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 276)();
 	// imports
 	
 	
@@ -29852,7 +29915,7 @@
 
 
 /***/ },
-/* 275 */
+/* 276 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -29911,7 +29974,7 @@
 
 
 /***/ },
-/* 276 */
+/* 277 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -30168,65 +30231,50 @@
 
 
 /***/ },
-/* 277 */
-/*!***************************************!*\
-  !*** ./app/components/ErrorModal.jsx ***!
-  \***************************************/
+/* 278 */
+/*!************************************************************!*\
+  !*** ./~/style-loader!./~/css-loader!./app/styles/app.css ***!
+  \************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
-	var React = __webpack_require__(/*! react */ 8);
+	// load the styles
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.css */ 279);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 277)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./app.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./app.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 279 */
+/*!*******************************************!*\
+  !*** ./~/css-loader!./app/styles/app.css ***!
+  \*******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 276)();
+	// imports
 	
-	var ErrorModal = React.createClass({
-	  displayName: 'ErrorModal',
 	
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      title: 'Error'
-	    };
-	  },
-	  propTypes: {
-	    title: React.PropTypes.string,
-	    message: React.PropTypes.string.isRequired
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var modal = new Foundation.Reveal($('#error-modal'));
-	    modal.open();
-	  },
-	  render: function render() {
-	    var _props = this.props;
-	    var title = _props.title;
-	    var message = _props.message;
+	// module
+	exports.push([module.id, ".page-title {\r\n  margin-top: 2.5rem;\r\n  margin-bottom: 2.5rem;\r\n}\r\n\r\ninput[type=search] {\r\n  box-shadow: none;\r\n}", ""]);
 	
-	    return React.createElement(
-	      'div',
-	      { id: 'error-modal', className: 'reveal tiny text-center', 'data-reveal': '' },
-	      React.createElement(
-	        'h4',
-	        null,
-	        title
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        message
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        React.createElement(
-	          'button',
-	          { className: 'button hollow', 'data-close': '' },
-	          'Okay'
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = ErrorModal;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! jquery */ 7)))
+	// exports
+
 
 /***/ }
 /******/ ]);
