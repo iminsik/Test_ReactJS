@@ -26,7 +26,7 @@ module.exports = React.createClass({
     }, function(e) {
       that.setState({
         isLoading: false,
-        errorMessage: e.message
+        errorMessage: 'Not Found City, ' + location
       });
     });
   },

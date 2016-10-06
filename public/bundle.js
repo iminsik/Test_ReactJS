@@ -127,14 +127,14 @@
 	
 	var AlaskaAirHomepage = __webpack_require__(/*! AlaskaAirHomepage */ 242);
 	var Weather = __webpack_require__(/*! Weather */ 245);
-	var About = __webpack_require__(/*! About */ 272);
-	var Example = __webpack_require__(/*! Example */ 273);
+	var About = __webpack_require__(/*! About */ 276);
+	var Example = __webpack_require__(/*! Example */ 277);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 274);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 278);
 	$(document).foundation();
 	
-	__webpack_require__(/*! style!css!applicationStyles */ 278);
+	__webpack_require__(/*! style!css!applicationStyles */ 282);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -28137,7 +28137,7 @@
 	    }, function (e) {
 	      that.setState({
 	        isLoading: false,
-	        errorMessage: e.message
+	        errorMessage: 'Not Found City, ' + location
 	      });
 	    });
 	  },
@@ -28301,7 +28301,7 @@
 	        return res.data.main.temp;
 	      }
 	    }, function (res) {
-	      throw new Error(res.data.message);
+	      throw new Error(res);
 	    });
 	  }
 	};
@@ -29727,7 +29727,7 @@
 	
 	var React = __webpack_require__(/*! react */ 8);
 	var ReactDOM = __webpack_require__(/*! react-dom */ 41);
-	var ReactDOMServer = __webpack_require__(/*! react-dom/server */ 280);
+	var ReactDOMServer = __webpack_require__(/*! react-dom/server */ 272);
 	
 	var ErrorModal = React.createClass({
 	  displayName: 'ErrorModal',
@@ -29786,6 +29786,181 @@
 
 /***/ },
 /* 272 */
+/*!*******************************!*\
+  !*** ./~/react-dom/server.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(/*! react/lib/ReactDOMServer */ 273);
+
+
+/***/ },
+/* 273 */
+/*!***************************************!*\
+  !*** ./~/react/lib/ReactDOMServer.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactDOMServer
+	 */
+	
+	'use strict';
+	
+	var ReactDefaultInjection = __webpack_require__(/*! ./ReactDefaultInjection */ 46);
+	var ReactServerRendering = __webpack_require__(/*! ./ReactServerRendering */ 274);
+	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 39);
+	
+	ReactDefaultInjection.inject();
+	
+	var ReactDOMServer = {
+	  renderToString: ReactServerRendering.renderToString,
+	  renderToStaticMarkup: ReactServerRendering.renderToStaticMarkup,
+	  version: ReactVersion
+	};
+	
+	module.exports = ReactDOMServer;
+
+/***/ },
+/* 274 */
+/*!*********************************************!*\
+  !*** ./~/react/lib/ReactServerRendering.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactServerRendering
+	 */
+	'use strict';
+	
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 14);
+	
+	var ReactDOMContainerInfo = __webpack_require__(/*! ./ReactDOMContainerInfo */ 170);
+	var ReactDefaultBatchingStrategy = __webpack_require__(/*! ./ReactDefaultBatchingStrategy */ 143);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 16);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 69);
+	var ReactMarkupChecksum = __webpack_require__(/*! ./ReactMarkupChecksum */ 172);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 66);
+	var ReactServerBatchingStrategy = __webpack_require__(/*! ./ReactServerBatchingStrategy */ 275);
+	var ReactServerRenderingTransaction = __webpack_require__(/*! ./ReactServerRenderingTransaction */ 136);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 63);
+	
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 26);
+	var instantiateReactComponent = __webpack_require__(/*! ./instantiateReactComponent */ 128);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 15);
+	
+	var pendingTransactions = 0;
+	
+	/**
+	 * @param {ReactElement} element
+	 * @return {string} the HTML markup
+	 */
+	function renderToStringImpl(element, makeStaticMarkup) {
+	  var transaction;
+	  try {
+	    ReactUpdates.injection.injectBatchingStrategy(ReactServerBatchingStrategy);
+	
+	    transaction = ReactServerRenderingTransaction.getPooled(makeStaticMarkup);
+	
+	    pendingTransactions++;
+	
+	    return transaction.perform(function () {
+	      var componentInstance = instantiateReactComponent(element, true);
+	      var markup = ReactReconciler.mountComponent(componentInstance, transaction, null, ReactDOMContainerInfo(), emptyObject, 0 /* parentDebugID */
+	      );
+	      if (process.env.NODE_ENV !== 'production') {
+	        ReactInstrumentation.debugTool.onUnmountComponent(componentInstance._debugID);
+	      }
+	      if (!makeStaticMarkup) {
+	        markup = ReactMarkupChecksum.addChecksumToMarkup(markup);
+	      }
+	      return markup;
+	    }, null);
+	  } finally {
+	    pendingTransactions--;
+	    ReactServerRenderingTransaction.release(transaction);
+	    // Revert to the DOM batching strategy since these two renderers
+	    // currently share these stateful modules.
+	    if (!pendingTransactions) {
+	      ReactUpdates.injection.injectBatchingStrategy(ReactDefaultBatchingStrategy);
+	    }
+	  }
+	}
+	
+	/**
+	 * Render a ReactElement to its initial HTML. This should only be used on the
+	 * server.
+	 * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring
+	 */
+	function renderToString(element) {
+	  !ReactElement.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToString(): You must pass a valid ReactElement.') : _prodInvariant('46') : void 0;
+	  return renderToStringImpl(element, false);
+	}
+	
+	/**
+	 * Similar to renderToString, except this doesn't create extra DOM attributes
+	 * such as data-react-id that React uses internally.
+	 * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup
+	 */
+	function renderToStaticMarkup(element) {
+	  !ReactElement.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToStaticMarkup(): You must pass a valid ReactElement.') : _prodInvariant('47') : void 0;
+	  return renderToStringImpl(element, true);
+	}
+	
+	module.exports = {
+	  renderToString: renderToString,
+	  renderToStaticMarkup: renderToStaticMarkup
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
+
+/***/ },
+/* 275 */
+/*!****************************************************!*\
+  !*** ./~/react/lib/ReactServerBatchingStrategy.js ***!
+  \****************************************************/
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2014-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactServerBatchingStrategy
+	 */
+	
+	'use strict';
+	
+	var ReactServerBatchingStrategy = {
+	  isBatchingUpdates: false,
+	  batchedUpdates: function (callback) {
+	    // Don't do anything here. During the server rendering we don't want to
+	    // schedule any updates. We will simply ignore them.
+	  }
+	};
+	
+	module.exports = ReactServerBatchingStrategy;
+
+/***/ },
+/* 276 */
 /*!**********************************!*\
   !*** ./app/components/About.jsx ***!
   \**********************************/
@@ -29842,7 +30017,7 @@
 	};
 
 /***/ },
-/* 273 */
+/* 277 */
 /*!************************************!*\
   !*** ./app/components/Example.jsx ***!
   \************************************/
@@ -29897,7 +30072,7 @@
 	};
 
 /***/ },
-/* 274 */
+/* 278 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -29906,10 +30081,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 275);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 279);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 277)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 281)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -29926,13 +30101,13 @@
 	}
 
 /***/ },
-/* 275 */
+/* 279 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 276)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 280)();
 	// imports
 	
 	
@@ -29943,7 +30118,7 @@
 
 
 /***/ },
-/* 276 */
+/* 280 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -30002,7 +30177,7 @@
 
 
 /***/ },
-/* 277 */
+/* 281 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -30257,7 +30432,7 @@
 
 
 /***/ },
-/* 278 */
+/* 282 */
 /*!************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./app/styles/app.css ***!
   \************************************************************/
@@ -30266,10 +30441,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./app.css */ 279);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.css */ 283);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 277)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 281)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30286,13 +30461,13 @@
 	}
 
 /***/ },
-/* 279 */
+/* 283 */
 /*!*******************************************!*\
   !*** ./~/css-loader!./app/styles/app.css ***!
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 276)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 280)();
 	// imports
 	
 	
@@ -30301,181 +30476,6 @@
 	
 	// exports
 
-
-/***/ },
-/* 280 */
-/*!*******************************!*\
-  !*** ./~/react-dom/server.js ***!
-  \*******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	module.exports = __webpack_require__(/*! react/lib/ReactDOMServer */ 281);
-
-
-/***/ },
-/* 281 */
-/*!***************************************!*\
-  !*** ./~/react/lib/ReactDOMServer.js ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactDOMServer
-	 */
-	
-	'use strict';
-	
-	var ReactDefaultInjection = __webpack_require__(/*! ./ReactDefaultInjection */ 46);
-	var ReactServerRendering = __webpack_require__(/*! ./ReactServerRendering */ 282);
-	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 39);
-	
-	ReactDefaultInjection.inject();
-	
-	var ReactDOMServer = {
-	  renderToString: ReactServerRendering.renderToString,
-	  renderToStaticMarkup: ReactServerRendering.renderToStaticMarkup,
-	  version: ReactVersion
-	};
-	
-	module.exports = ReactDOMServer;
-
-/***/ },
-/* 282 */
-/*!*********************************************!*\
-  !*** ./~/react/lib/ReactServerRendering.js ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactServerRendering
-	 */
-	'use strict';
-	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 14);
-	
-	var ReactDOMContainerInfo = __webpack_require__(/*! ./ReactDOMContainerInfo */ 170);
-	var ReactDefaultBatchingStrategy = __webpack_require__(/*! ./ReactDefaultBatchingStrategy */ 143);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 16);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 69);
-	var ReactMarkupChecksum = __webpack_require__(/*! ./ReactMarkupChecksum */ 172);
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 66);
-	var ReactServerBatchingStrategy = __webpack_require__(/*! ./ReactServerBatchingStrategy */ 283);
-	var ReactServerRenderingTransaction = __webpack_require__(/*! ./ReactServerRenderingTransaction */ 136);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 63);
-	
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 26);
-	var instantiateReactComponent = __webpack_require__(/*! ./instantiateReactComponent */ 128);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 15);
-	
-	var pendingTransactions = 0;
-	
-	/**
-	 * @param {ReactElement} element
-	 * @return {string} the HTML markup
-	 */
-	function renderToStringImpl(element, makeStaticMarkup) {
-	  var transaction;
-	  try {
-	    ReactUpdates.injection.injectBatchingStrategy(ReactServerBatchingStrategy);
-	
-	    transaction = ReactServerRenderingTransaction.getPooled(makeStaticMarkup);
-	
-	    pendingTransactions++;
-	
-	    return transaction.perform(function () {
-	      var componentInstance = instantiateReactComponent(element, true);
-	      var markup = ReactReconciler.mountComponent(componentInstance, transaction, null, ReactDOMContainerInfo(), emptyObject, 0 /* parentDebugID */
-	      );
-	      if (process.env.NODE_ENV !== 'production') {
-	        ReactInstrumentation.debugTool.onUnmountComponent(componentInstance._debugID);
-	      }
-	      if (!makeStaticMarkup) {
-	        markup = ReactMarkupChecksum.addChecksumToMarkup(markup);
-	      }
-	      return markup;
-	    }, null);
-	  } finally {
-	    pendingTransactions--;
-	    ReactServerRenderingTransaction.release(transaction);
-	    // Revert to the DOM batching strategy since these two renderers
-	    // currently share these stateful modules.
-	    if (!pendingTransactions) {
-	      ReactUpdates.injection.injectBatchingStrategy(ReactDefaultBatchingStrategy);
-	    }
-	  }
-	}
-	
-	/**
-	 * Render a ReactElement to its initial HTML. This should only be used on the
-	 * server.
-	 * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring
-	 */
-	function renderToString(element) {
-	  !ReactElement.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToString(): You must pass a valid ReactElement.') : _prodInvariant('46') : void 0;
-	  return renderToStringImpl(element, false);
-	}
-	
-	/**
-	 * Similar to renderToString, except this doesn't create extra DOM attributes
-	 * such as data-react-id that React uses internally.
-	 * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup
-	 */
-	function renderToStaticMarkup(element) {
-	  !ReactElement.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToStaticMarkup(): You must pass a valid ReactElement.') : _prodInvariant('47') : void 0;
-	  return renderToStringImpl(element, true);
-	}
-	
-	module.exports = {
-	  renderToString: renderToString,
-	  renderToStaticMarkup: renderToStaticMarkup
-	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 10)))
-
-/***/ },
-/* 283 */
-/*!****************************************************!*\
-  !*** ./~/react/lib/ReactServerBatchingStrategy.js ***!
-  \****************************************************/
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2014-present, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactServerBatchingStrategy
-	 */
-	
-	'use strict';
-	
-	var ReactServerBatchingStrategy = {
-	  isBatchingUpdates: false,
-	  batchedUpdates: function (callback) {
-	    // Don't do anything here. During the server rendering we don't want to
-	    // schedule any updates. We will simply ignore them.
-	  }
-	};
-	
-	module.exports = ReactServerBatchingStrategy;
 
 /***/ }
 /******/ ]);
