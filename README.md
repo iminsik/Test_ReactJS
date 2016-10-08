@@ -1,1 +1,1 @@
-Hello, World!
+Boilerplate React App

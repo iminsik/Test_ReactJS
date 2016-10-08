@@ -22,15 +22,7 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
-      AlaskaAirHomepage: 'app/components/AlaskaAirHomepage.jsx',
-      Nav: 'app/components/Nav.jsx',
-      About: 'app/components/About.jsx',
-      Example: 'app/components/Example.jsx',
-      Weather: 'app/components/Weather.jsx',
-      WeatherForm: 'app/components/WeatherForm.jsx',
-      OpenWeatherMap: 'app/api/openWeatherMap.jsx',
-      WeatherMessage: 'app/components/WeatherMessage.jsx',
-      ErrorModal: 'app/components/ErrorModal.jsx',
+      Main: 'app/components/Main.jsx',
       applicationStyles: 'app/styles/app.css'
     },
     extensions: ['', '.js', '.jsx']
