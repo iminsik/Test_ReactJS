@@ -28383,7 +28383,7 @@
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 251), "");
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
 	
 	// exports
 
@@ -28400,7 +28400,7 @@
 	
 	
 	// module
-	exports.push([module.id, "$grey: #333333;\r\n$nav-background: $grey;\r\n\r\n", ""]);
+	exports.push([module.id, "$grey: #333333;\r\n$nav-background: $grey;\r\n", ""]);
 	
 	// exports
 
