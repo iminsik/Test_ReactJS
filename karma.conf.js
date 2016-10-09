@@ -2,7 +2,7 @@ var webpackConfig = require('./webpack.config.js');
 
 module.exports = function (config) {
   config.set({
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
     singleRun: true,
     frameworks: ['mocha'],
     files: ['app/tests/**/*.test.jsx'],
@@ -18,6 +18,10 @@ module.exports = function (config) {
     webpack: webpackConfig,
     webpackServer: {
       noInfo: true
+    },
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom) 
+      exitOnResourceError: true
     }
   });
 };
