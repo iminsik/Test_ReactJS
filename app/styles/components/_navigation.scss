@@ -1,3 +1,14 @@
+/*
 .top-bar {
   background-color: $nav-background;
+}
+*/
+
+.top-bar .active-link {
+  font-weight: bold;
+}
+
+.top-bar .menu-text {
+  color: #000000;
+  font-weight: normal;
 }
