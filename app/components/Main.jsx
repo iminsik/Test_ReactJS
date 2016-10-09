@@ -1,11 +1,13 @@
 const React = require('react');
+const Navigation = require('Navigation');
 
 const Main = (props) => 
 (
     <div>
         <div>
             <div>
-                <p>Main.jsx Rendered</p>
+                <Navigation />
+                <p>Main.jsx rendered.</p>
                 {props.children}
             </div>
         </div>

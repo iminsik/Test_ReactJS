@@ -128,10 +128,10 @@
 	var Main = __webpack_require__(/*! Main */ 242);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 243);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 244);
 	$(document).foundation();
 	
-	__webpack_require__(/*! style!css!applicationStyles */ 247);
+	__webpack_require__(/*! style!css!applicationStyles */ 248);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27880,6 +27880,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 8);
+	var Navigation = __webpack_require__(/*! Navigation */ 243);
 	
 	var Main = function Main(props) {
 	    return React.createElement(
@@ -27891,10 +27892,11 @@
 	            React.createElement(
 	                'div',
 	                null,
+	                React.createElement(Navigation, null),
 	                React.createElement(
 	                    'p',
 	                    null,
-	                    'Main.jsx Rendered'
+	                    'Main.jsx rendered.'
 	                ),
 	                props.children
 	            )
@@ -27906,6 +27908,81 @@
 
 /***/ },
 /* 243 */
+/*!***************************************!*\
+  !*** ./app/components/Navigation.jsx ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 8);
+	
+	var _require = __webpack_require__(/*! react-router */ 179);
+	
+	var Link = _require.Link;
+	var IndexLink = _require.IndexLink;
+	
+	
+	var Navigation = function Navigation() {
+	  return React.createElement(
+	    'div',
+	    { className: 'top-bar' },
+	    React.createElement(
+	      'div',
+	      { className: 'top-bar-left' },
+	      React.createElement(
+	        'ul',
+	        { className: 'menu' },
+	        React.createElement(
+	          'li',
+	          { className: 'menu-text' },
+	          'React Timer App'
+	        ),
+	        React.createElement(
+	          'li',
+	          { className: 'menu-text' },
+	          React.createElement(
+	            IndexLink,
+	            { to: '/', activeClassName: 'active-link' },
+	            'Timer'
+	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          { className: 'menu-text' },
+	          React.createElement(
+	            Link,
+	            { to: '/', activeClassName: 'active-link' },
+	            'CountDown'
+	          )
+	        )
+	      )
+	    ),
+	    React.createElement(
+	      'div',
+	      { className: 'top-bar-right' },
+	      React.createElement(
+	        'ul',
+	        { className: 'menu' },
+	        React.createElement(
+	          'li',
+	          { className: 'menu-text' },
+	          'Created by ',
+	          React.createElement(
+	            'a',
+	            { href: 'mailto:iminsik@gmail.com', target: '_blank' },
+	            'Insik'
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+	
+	module.exports = Navigation;
+
+/***/ },
+/* 244 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -27914,10 +27991,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 244);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 245);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 246)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 247)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -27934,13 +28011,13 @@
 	}
 
 /***/ },
-/* 244 */
+/* 245 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 245)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 246)();
 	// imports
 	
 	
@@ -27951,7 +28028,7 @@
 
 
 /***/ },
-/* 245 */
+/* 246 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -28010,7 +28087,7 @@
 
 
 /***/ },
-/* 246 */
+/* 247 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -28265,26 +28342,26 @@
 
 
 /***/ },
-/* 247 */
-/*!************************************************************!*\
-  !*** ./~/style-loader!./~/css-loader!./app/styles/app.css ***!
-  \************************************************************/
+/* 248 */
+/*!*************************************************************!*\
+  !*** ./~/style-loader!./~/css-loader!./app/styles/app.scss ***!
+  \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./app.css */ 248);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 249);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 246)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 247)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./app.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./app.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./app.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./app.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -28294,18 +28371,53 @@
 	}
 
 /***/ },
-/* 248 */
-/*!*******************************************!*\
-  !*** ./~/css-loader!./app/styles/app.css ***!
-  \*******************************************/
+/* 249 */
+/*!********************************************!*\
+  !*** ./~/css-loader!./app/styles/app.scss ***!
+  \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 245)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 246)();
+	// imports
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 250), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 251), "");
+	
+	// module
+	exports.push([module.id, "", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 250 */
+/*!********************************************************!*\
+  !*** ./~/css-loader!./app/styles/base/_variables.scss ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 246)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".page-title {\r\n  margin-top: 2.5rem;\r\n  margin-bottom: 2.5rem;\r\n}\r\n\r\ninput[type=search] {\r\n  box-shadow: none;\r\n}", ""]);
+	exports.push([module.id, "$grey: #333333;\r\n$nav-background: $grey;\r\n\r\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 251 */
+/*!***************************************************************!*\
+  !*** ./~/css-loader!./app/styles/components/_navigation.scss ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 246)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".top-bar {\r\n  background-color: $nav-background;\r\n}", ""]);
 	
 	// exports
 
