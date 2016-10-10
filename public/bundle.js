@@ -127,13 +127,13 @@
 	
 	var Main = __webpack_require__(/*! Main */ 242);
 	var Countdown = __webpack_require__(/*! Countdown */ 244);
-	var Timer = __webpack_require__(/*! Timer */ 245);
+	var Timer = __webpack_require__(/*! Timer */ 246);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 246);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 247);
 	$(document).foundation();
 	
-	__webpack_require__(/*! style!css!applicationStyles */ 250);
+	__webpack_require__(/*! style!css!applicationStyles */ 251);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27998,17 +27998,69 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 8);
+	var Clock = __webpack_require__(/*! Clock */ 245);
 	
-	module.exports = function () {
-	  return React.createElement(
-	    'div',
-	    null,
-	    'Countdown.jsx'
-	  );
-	};
+	var Countdown = React.createClass({
+	  displayName: 'Countdown',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Clock, { totalSeconds: 129 })
+	    );
+	  }
+	});
+	
+	module.exports = Countdown;
 
 /***/ },
 /* 245 */
+/*!**********************************!*\
+  !*** ./app/components/Clock.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 8);
+	var Clock = React.createClass({
+	  displayName: 'Clock',
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return { totalSeconds: 0 };
+	  },
+	  propTypes: {
+	    totalSeconds: React.PropTypes.number
+	  },
+	  formatSeconds: function formatSeconds(totalSeconds) {
+	    var seconds = totalSeconds % 60;
+	    var minutes = Math.floor(totalSeconds / 60);
+	
+	    return pad(minutes, 2) + ':' + pad(seconds, 2);
+	  },
+	  render: function render() {
+	    var totalSeconds = this.props.totalSeconds;
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'clock' },
+	      React.createElement(
+	        'span',
+	        { className: 'clock-text' },
+	        this.formatSeconds(totalSeconds)
+	      )
+	    );
+	  }
+	});
+	
+	function pad(value, length) {
+	  return value.toString().length < length ? pad("0" + value, length) : value;
+	}
+	module.exports = Clock;
+
+/***/ },
+/* 246 */
 /*!**********************************!*\
   !*** ./app/components/Timer.jsx ***!
   \**********************************/
@@ -28027,7 +28079,7 @@
 	};
 
 /***/ },
-/* 246 */
+/* 247 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -28036,10 +28088,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 247);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 248);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 249)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 250)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28056,13 +28108,13 @@
 	}
 
 /***/ },
-/* 247 */
+/* 248 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 248)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 249)();
 	// imports
 	
 	
@@ -28073,7 +28125,7 @@
 
 
 /***/ },
-/* 248 */
+/* 249 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -28132,7 +28184,7 @@
 
 
 /***/ },
-/* 249 */
+/* 250 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -28387,7 +28439,7 @@
 
 
 /***/ },
-/* 250 */
+/* 251 */
 /*!*************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./app/styles/app.scss ***!
   \*************************************************************/
@@ -28396,10 +28448,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 251);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 252);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 249)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 250)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28416,16 +28468,17 @@
 	}
 
 /***/ },
-/* 251 */
+/* 252 */
 /*!********************************************!*\
   !*** ./~/css-loader!./app/styles/app.scss ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 248)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 249)();
 	// imports
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 252), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 253), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 253), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 254), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 255), "");
 	
 	// module
 	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
@@ -28434,13 +28487,13 @@
 
 
 /***/ },
-/* 252 */
+/* 253 */
 /*!********************************************************!*\
   !*** ./~/css-loader!./app/styles/base/_variables.scss ***!
   \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 248)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 249)();
 	// imports
 	
 	
@@ -28451,18 +28504,35 @@
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /*!***************************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_navigation.scss ***!
   \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 248)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 249)();
 	// imports
 	
 	
 	// module
 	exports.push([module.id, "/*\r\n.top-bar {\r\n  background-color: $nav-background;\r\n}\r\n*/\r\n\r\n.top-bar .active-link {\r\n  font-weight: bold;\r\n}\r\n\r\n.top-bar .menu-text {\r\n  color: #000000;\r\n  font-weight: normal;\r\n}\r\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 255 */
+/*!**********************************************************!*\
+  !*** ./~/css-loader!./app/styles/components/_clock.scss ***!
+  \**********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 249)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".clock {\r\n  align-items: center;\r\n  background-color: #B5D0E2;\r\n  border: 2px solid #2099E8;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  height: 14rem;\r\n  width: 14rem;\r\n  justify-content: center;\r\n  margin: 4rem auto;\r\n}\r\n\r\n.clock-text {\r\n  color: white;\r\n  font-size: 2.25rem;\r\n  font-weight: 300;\r\n}", ""]);
 	
 	// exports
 

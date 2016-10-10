@@ -1,7 +1,14 @@
 const React = require('react');
+const Clock = require('Clock');
 
-module.exports = () => 
-  (
-    <div>Countdown.jsx</div>
-  )
-;
+var Countdown = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <Clock totalSeconds={129} />
+      </div>
+    );
+  }
+});
+
+module.exports = Countdown;
