@@ -4,10 +4,9 @@ const Navigation = require('Navigation');
 const Main = (props) => 
 (
     <div>
-        <div>
-            <div>
-                <Navigation />
-                <p>Main.jsx rendered.</p>
+        <Navigation />
+        <div className="row">
+            <div className="column small-centered medium-6 large-4">
                 {props.children}
             </div>
         </div>

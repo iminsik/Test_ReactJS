@@ -59,7 +59,7 @@
   \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! !./~/script-loader/addScript.js */ 2)(__webpack_require__(/*! !./~/raw-loader!./~/jquery/dist/jquery.min.js */ 3)+"\n\n// SCRIPT-LOADER FOOTER\n//# sourceURL=script:///d:/GIT/Insik.Cho/node_modules/jquery/dist/jquery.min.js")
+	__webpack_require__(/*! !./~/script-loader/addScript.js */ 2)(__webpack_require__(/*! !./~/raw-loader!./~/jquery/dist/jquery.min.js */ 3)+"\n\n// SCRIPT-LOADER FOOTER\n//# sourceURL=script:///D:/GIT/Insik.Cho/node_modules/jquery/dist/jquery.min.js")
 
 /***/ },
 /* 2 */
@@ -95,7 +95,7 @@
   \*********************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(/*! !./~/script-loader/addScript.js */ 2)(__webpack_require__(/*! !./~/raw-loader!./~/foundation-sites/dist/foundation.min.js */ 5)+"\n\n// SCRIPT-LOADER FOOTER\n//# sourceURL=script:///d:/GIT/Insik.Cho/node_modules/foundation-sites/dist/foundation.min.js")
+	__webpack_require__(/*! !./~/script-loader/addScript.js */ 2)(__webpack_require__(/*! !./~/raw-loader!./~/foundation-sites/dist/foundation.min.js */ 5)+"\n\n// SCRIPT-LOADER FOOTER\n//# sourceURL=script:///D:/GIT/Insik.Cho/node_modules/foundation-sites/dist/foundation.min.js")
 
 /***/ },
 /* 5 */
@@ -127,13 +127,13 @@
 	
 	var Main = __webpack_require__(/*! Main */ 242);
 	var Countdown = __webpack_require__(/*! Countdown */ 244);
-	var Timer = __webpack_require__(/*! Timer */ 246);
+	var Timer = __webpack_require__(/*! Timer */ 247);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 247);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 248);
 	$(document).foundation();
 	
-	__webpack_require__(/*! style!css!applicationStyles */ 251);
+	__webpack_require__(/*! style!css!applicationStyles */ 252);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27893,18 +27893,13 @@
 	    return React.createElement(
 	        'div',
 	        null,
+	        React.createElement(Navigation, null),
 	        React.createElement(
 	            'div',
-	            null,
+	            { className: 'row' },
 	            React.createElement(
 	                'div',
-	                null,
-	                React.createElement(Navigation, null),
-	                React.createElement(
-	                    'p',
-	                    null,
-	                    'Main.jsx rendered.'
-	                ),
+	                { className: 'column small-centered medium-6 large-4' },
 	                props.children
 	            )
 	        )
@@ -27999,15 +27994,27 @@
 	
 	var React = __webpack_require__(/*! react */ 8);
 	var Clock = __webpack_require__(/*! Clock */ 245);
+	var CountdownForm = __webpack_require__(/*! CountdownForm */ 246);
 	
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
 	
+	  getInitialState: function getInitialState() {
+	    return { count: 0 };
+	  },
+	  handleSetCountdown: function handleSetCountdown(seconds) {
+	    this.setState({
+	      count: seconds
+	    });
+	  },
 	  render: function render() {
+	    var count = this.state.count;
+	
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Clock, { totalSeconds: 129 })
+	      React.createElement(Clock, { totalSeconds: count }),
+	      React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown })
 	    );
 	  }
 	});
@@ -28061,6 +28068,49 @@
 
 /***/ },
 /* 246 */
+/*!******************************************!*\
+  !*** ./app/components/CountdownForm.jsx ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 8);
+	
+	var CountdownForm = React.createClass({
+	  displayName: 'CountdownForm',
+	
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+	    var strSeconds = this.refs.seconds.value;
+	
+	    if (strSeconds.match(/^[0-9]*$/)) {
+	      this.refs.seconds.value = '';
+	      this.props.onSetCountdown(parseInt(strSeconds, 10));
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { ref: 'form', onSubmit: this.onSubmit, className: 'countdown-form' },
+	        React.createElement('input', { type: 'text', ref: 'seconds', placeholder: 'Enter time in seconds' }),
+	        React.createElement(
+	          'button',
+	          { className: 'button expanded' },
+	          'Start'
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = CountdownForm;
+
+/***/ },
+/* 247 */
 /*!**********************************!*\
   !*** ./app/components/Timer.jsx ***!
   \**********************************/
@@ -28079,7 +28129,7 @@
 	};
 
 /***/ },
-/* 247 */
+/* 248 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -28088,10 +28138,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 248);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 249);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 250)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 251)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28108,13 +28158,13 @@
 	}
 
 /***/ },
-/* 248 */
+/* 249 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 249)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 250)();
 	// imports
 	
 	
@@ -28125,7 +28175,7 @@
 
 
 /***/ },
-/* 249 */
+/* 250 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -28184,7 +28234,7 @@
 
 
 /***/ },
-/* 250 */
+/* 251 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -28439,7 +28489,7 @@
 
 
 /***/ },
-/* 251 */
+/* 252 */
 /*!*************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./app/styles/app.scss ***!
   \*************************************************************/
@@ -28448,10 +28498,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 252);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 253);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 250)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 251)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28468,17 +28518,17 @@
 	}
 
 /***/ },
-/* 252 */
+/* 253 */
 /*!********************************************!*\
   !*** ./~/css-loader!./app/styles/app.scss ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 249)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 250)();
 	// imports
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 253), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 254), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 255), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 254), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 255), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 256), "");
 	
 	// module
 	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
@@ -28487,13 +28537,13 @@
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /*!********************************************************!*\
   !*** ./~/css-loader!./app/styles/base/_variables.scss ***!
   \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 249)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 250)();
 	// imports
 	
 	
@@ -28504,13 +28554,13 @@
 
 
 /***/ },
-/* 254 */
+/* 255 */
 /*!***************************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_navigation.scss ***!
   \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 249)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 250)();
 	// imports
 	
 	
@@ -28521,13 +28571,13 @@
 
 
 /***/ },
-/* 255 */
+/* 256 */
 /*!**********************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_clock.scss ***!
   \**********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 249)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 250)();
 	// imports
 	
 	
