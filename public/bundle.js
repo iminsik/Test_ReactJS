@@ -127,13 +127,13 @@
 	
 	var Main = __webpack_require__(/*! Main */ 242);
 	var Countdown = __webpack_require__(/*! Countdown */ 244);
-	var Timer = __webpack_require__(/*! Timer */ 247);
+	var Timer = __webpack_require__(/*! Timer */ 248);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 248);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 249);
 	$(document).foundation();
 	
-	__webpack_require__(/*! style!css!applicationStyles */ 252);
+	__webpack_require__(/*! style!css!applicationStyles */ 253);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27995,6 +27995,7 @@
 	var React = __webpack_require__(/*! react */ 8);
 	var Clock = __webpack_require__(/*! Clock */ 245);
 	var CountdownForm = __webpack_require__(/*! CountdownForm */ 246);
+	var Controls = __webpack_require__(/*! Controls */ 247);
 	
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
@@ -28018,6 +28019,7 @@
 	  },
 	  stopTimer: function stopTimer() {
 	    clearInterval(this.timer);
+	    this.timer = undefined;
 	  },
 	  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
 	    if (this.state.countdownStatus !== prevState.countdownStatus) {
@@ -28026,9 +28028,11 @@
 	          this.startTimer();
 	          break;
 	        case 'stopped':
+	          this.setState({ count: 0 });
+	        case 'paused':
 	          this.stopTimer();
 	          break;
-	        case 'started':
+	        default:
 	          break;
 	      }
 	    }
@@ -28039,25 +28043,31 @@
 	      countdownStatus: 'started'
 	    });
 	  },
-	  renderCountdownControl: function renderCountdownControl() {
-	    if (this.state.countdownStatus === 'stopped') {
-	      return React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown });
-	    } else {
-	      return React.createElement(
-	        'div',
-	        null,
-	        'Just started'
-	      );
-	    }
+	  handleStatusChange: function handleStatusChange(newStatus) {
+	    this.setState({
+	      countdownStatus: newStatus
+	    });
 	  },
 	  render: function render() {
-	    var count = this.state.count;
+	    var _this2 = this;
+	
+	    var _state = this.state;
+	    var count = _state.count;
+	    var countdownStatus = _state.countdownStatus;
+	
+	    var renderControlArea = function renderControlArea() {
+	      if (countdownStatus !== 'stopped') {
+	        return React.createElement(Controls, { countdownStatus: countdownStatus, onStatusChange: _this2.handleStatusChange });
+	      } else {
+	        return React.createElement(CountdownForm, { onSetCountdown: _this2.handleSetCountdown });
+	      }
+	    };
 	
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(Clock, { totalSeconds: count }),
-	      this.renderCountdownControl()
+	      renderControlArea()
 	    );
 	  }
 	});
@@ -28154,6 +28164,66 @@
 
 /***/ },
 /* 247 */
+/*!*************************************!*\
+  !*** ./app/components/Controls.jsx ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 8);
+	
+	var Controls = React.createClass({
+	  displayName: 'Controls',
+	
+	  propTypes: {
+	    countdownStatus: React.PropTypes.string.isRequired,
+	    onStatusChange: React.PropTypes.func.isRequired
+	  },
+	  onStatusChange: function onStatusChange(newStatus) {
+	    var _this = this;
+	
+	    return function () {
+	      _this.props.onStatusChange(newStatus);
+	    };
+	  },
+	  render: function render() {
+	    var _this2 = this;
+	
+	    var countdownStatus = this.props.countdownStatus;
+	
+	    var renderStartStopButton = function renderStartStopButton() {
+	      if (countdownStatus === 'started') {
+	        return React.createElement(
+	          'button',
+	          { className: 'button secondary', onClick: _this2.onStatusChange('paused') },
+	          'Pause'
+	        );
+	      } else if (countdownStatus === 'paused') {
+	        return React.createElement(
+	          'button',
+	          { className: 'button primary', onClick: _this2.onStatusChange('started') },
+	          'Start'
+	        );
+	      }
+	    };
+	    return React.createElement(
+	      'div',
+	      { className: 'controls' },
+	      renderStartStopButton(),
+	      React.createElement(
+	        'button',
+	        { className: 'button alert hollow', onClick: this.onStatusChange('stopped') },
+	        'Clear'
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Controls;
+
+/***/ },
+/* 248 */
 /*!**********************************!*\
   !*** ./app/components/Timer.jsx ***!
   \**********************************/
@@ -28172,7 +28242,7 @@
 	};
 
 /***/ },
-/* 248 */
+/* 249 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -28181,10 +28251,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 249);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 250);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 251)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 252)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28201,13 +28271,13 @@
 	}
 
 /***/ },
-/* 249 */
+/* 250 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 250)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 251)();
 	// imports
 	
 	
@@ -28218,7 +28288,7 @@
 
 
 /***/ },
-/* 250 */
+/* 251 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -28277,7 +28347,7 @@
 
 
 /***/ },
-/* 251 */
+/* 252 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -28532,7 +28602,7 @@
 
 
 /***/ },
-/* 252 */
+/* 253 */
 /*!*************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./app/styles/app.scss ***!
   \*************************************************************/
@@ -28541,10 +28611,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 253);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 254);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 251)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 252)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28561,17 +28631,17 @@
 	}
 
 /***/ },
-/* 253 */
+/* 254 */
 /*!********************************************!*\
   !*** ./~/css-loader!./app/styles/app.scss ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 250)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 251)();
 	// imports
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 254), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 255), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 256), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 255), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 256), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 257), "");
 	
 	// module
 	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
@@ -28580,13 +28650,13 @@
 
 
 /***/ },
-/* 254 */
+/* 255 */
 /*!********************************************************!*\
   !*** ./~/css-loader!./app/styles/base/_variables.scss ***!
   \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 250)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
 	// imports
 	
 	
@@ -28597,13 +28667,13 @@
 
 
 /***/ },
-/* 255 */
+/* 256 */
 /*!***************************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_navigation.scss ***!
   \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 250)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
 	// imports
 	
 	
@@ -28614,13 +28684,13 @@
 
 
 /***/ },
-/* 256 */
+/* 257 */
 /*!**********************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_clock.scss ***!
   \**********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 250)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
 	// imports
 	
 	
