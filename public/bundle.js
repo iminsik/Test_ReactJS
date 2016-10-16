@@ -28039,6 +28039,17 @@
 	      countdownStatus: 'started'
 	    });
 	  },
+	  renderCountdownControl: function renderCountdownControl() {
+	    if (this.state.countdownStatus === 'stopped') {
+	      return React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown });
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        'Just started'
+	      );
+	    }
+	  },
 	  render: function render() {
 	    var count = this.state.count;
 	
@@ -28046,7 +28057,7 @@
 	      'div',
 	      null,
 	      React.createElement(Clock, { totalSeconds: count }),
-	      React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown })
+	      this.renderCountdownControl()
 	    );
 	  }
 	});
