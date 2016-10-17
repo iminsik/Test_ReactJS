@@ -28642,6 +28642,7 @@
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 255), "");
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 256), "");
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 257), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_controls.scss */ 258), "");
 	
 	// module
 	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
@@ -28696,6 +28697,23 @@
 	
 	// module
 	exports.push([module.id, ".clock {\r\n  align-items: center;\r\n  background-color: #B5D0E2;\r\n  border: 2px solid #2099E8;\r\n  border-radius: 50%;\r\n  display: flex;\r\n  height: 14rem;\r\n  width: 14rem;\r\n  justify-content: center;\r\n  margin: 4rem auto;\r\n}\r\n\r\n.clock-text {\r\n  color: white;\r\n  font-size: 2.25rem;\r\n  font-weight: 300;\r\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 258 */
+/*!*************************************************************!*\
+  !*** ./~/css-loader!./app/styles/components/_controls.scss ***!
+  \*************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".controls {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.controls .button {\r\n  padding: .75rem 3rem;\r\n}\r\n\r\n.controls .button:first-child {\r\n  margin-right: 1.5rem;\r\n}", ""]);
 	
 	// exports
 
