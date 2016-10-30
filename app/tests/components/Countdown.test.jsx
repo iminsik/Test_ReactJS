@@ -39,5 +39,34 @@ describe('Countdown', () => {
         done();
       }, 3001);
     });
+    it('should pause countdown on paused status', (done) => {
+      var countDown = TestUtils.renderIntoDocument(<Countdown />);
+      countDown.handleSetCountdown(3);
+      countDown.handleStatusChange('paused');
+
+      setTimeout(() => {
+        expect(countDown.state.count).toBe(3);
+        expect(countDown.state.countdownStatus).toBe('paused');
+        done();
+      }, 1001);
+    });
+
+    it('should stop countdown on stopped status', () => {
+      var countDown = TestUtils.renderIntoDocument(<Countdown />);
+      countDown.handleSetCountdown(3);
+      countDown.handleStatusChange('stopped');
+
+      expect(countDown.state.count).toBe(0);
+      expect(countDown.state.countdownStatus).toBe('stopped');
+    });
+
+    it('should have Countdown App title', () => {
+      var countDown = TestUtils.renderIntoDocument(<Countdown />);
+      var $el = $(ReactDOM.findDOMNode(countDown));
+      var $h1 = $el.find('h1');
+
+      expect($h1.length).toBe(1);
+      expect($h1[0].innerText).toBe('Countdown App');
+    });
   });
 });

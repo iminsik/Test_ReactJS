@@ -28066,6 +28066,11 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(
+	        'h1',
+	        { className: 'page-title' },
+	        'Countdown App'
+	      ),
 	      React.createElement(Clock, { totalSeconds: count }),
 	      renderControlArea()
 	    );
@@ -28643,6 +28648,7 @@
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 256), "");
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 257), "");
 	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_controls.scss */ 258), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_page-title.scss */ 259), "");
 	
 	// module
 	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
@@ -28714,6 +28720,23 @@
 	
 	// module
 	exports.push([module.id, ".controls {\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n\r\n.controls .button {\r\n  padding: .75rem 3rem;\r\n}\r\n\r\n.controls .button:first-child {\r\n  margin-right: 1.5rem;\r\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 259 */
+/*!***************************************************************!*\
+  !*** ./~/css-loader!./app/styles/components/_page-title.scss ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".page-title {\r\n  margin: 2rem 0;\r\n  text-align: center;\r\n}", ""]);
 	
 	// exports
 
