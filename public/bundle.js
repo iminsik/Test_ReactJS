@@ -127,13 +127,13 @@
 	
 	var Main = __webpack_require__(/*! Main */ 242);
 	var Countdown = __webpack_require__(/*! Countdown */ 244);
-	var Timer = __webpack_require__(/*! Timer */ 248);
+	var Timer = __webpack_require__(/*! Timer */ 249);
 	
 	// Load foundation
-	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 249);
+	__webpack_require__(/*! style!css!foundation-sites/dist/foundation.min.css */ 250);
 	$(document).foundation();
 	
-	__webpack_require__(/*! style!css!applicationStyles */ 253);
+	__webpack_require__(/*! style!css!applicationStyles */ 254);
 	
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -27994,8 +27994,8 @@
 	
 	var React = __webpack_require__(/*! react */ 8);
 	var Clock = __webpack_require__(/*! Clock */ 245);
-	var CountdownForm = __webpack_require__(/*! CountdownForm */ 246);
-	var Controls = __webpack_require__(/*! Controls */ 247);
+	var CountdownForm = __webpack_require__(/*! CountdownForm */ 247);
+	var Controls = __webpack_require__(/*! Controls */ 248);
 	
 	var Countdown = React.createClass({
 	  displayName: 'Countdown',
@@ -28089,21 +28089,16 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 8);
+	var Utils = __webpack_require__(/*! Utils */ 246);
+	
 	var Clock = React.createClass({
 	  displayName: 'Clock',
 	
-	  getDefaultProps: function getDefaultProps() {
-	    return { totalSeconds: 0 };
-	  },
+	  getDefaultProps: Utils.getDefaultProps,
 	  propTypes: {
 	    totalSeconds: React.PropTypes.number
 	  },
-	  formatSeconds: function formatSeconds(totalSeconds) {
-	    var seconds = totalSeconds % 60;
-	    var minutes = Math.floor(totalSeconds / 60);
-	
-	    return pad(minutes, 2) + ':' + pad(seconds, 2);
-	  },
+	  formatSeconds: Utils.formatSeconds,
 	  render: function render() {
 	    var totalSeconds = this.props.totalSeconds;
 	
@@ -28113,19 +28108,45 @@
 	      React.createElement(
 	        'span',
 	        { className: 'clock-text' },
-	        this.formatSeconds(totalSeconds)
+	        Utils.formatSeconds(totalSeconds)
 	      )
 	    );
 	  }
 	});
-	
-	function pad(value, length) {
-	  return value.toString().length < length ? pad("0" + value, length) : value;
-	}
 	module.exports = Clock;
 
 /***/ },
 /* 246 */
+/*!**********************************!*\
+  !*** ./app/components/Utils.jsx ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	function getDefaultProps() {
+	  return { totalSeconds: 0 };
+	}
+	
+	function pad(value, length) {
+	  return value.toString().length < length ? pad("0" + value, length) : value;
+	}
+	
+	function formatSeconds(totalSeconds) {
+	  var seconds = totalSeconds % 60;
+	  var minutes = Math.floor(totalSeconds / 60);
+	
+	  return pad(minutes, 2) + ':' + pad(seconds, 2);
+	}
+	
+	module.exports = {
+	  getDefaultProps: getDefaultProps,
+	  pad: pad,
+	  formatSeconds: formatSeconds
+	};
+
+/***/ },
+/* 247 */
 /*!******************************************!*\
   !*** ./app/components/CountdownForm.jsx ***!
   \******************************************/
@@ -28168,7 +28189,7 @@
 	module.exports = CountdownForm;
 
 /***/ },
-/* 247 */
+/* 248 */
 /*!*************************************!*\
   !*** ./app/components/Controls.jsx ***!
   \*************************************/
@@ -28210,6 +28231,12 @@
 	          { className: 'button primary', onClick: _this2.onStatusChange('started') },
 	          'Start'
 	        );
+	      } else if (countdownStatus === 'stopped') {
+	        return React.createElement(
+	          'button',
+	          { className: 'button second', onClick: _this2.onStatusChange('started') },
+	          'Start'
+	        );
 	      }
 	    };
 	    return React.createElement(
@@ -28228,7 +28255,7 @@
 	module.exports = Controls;
 
 /***/ },
-/* 248 */
+/* 249 */
 /*!**********************************!*\
   !*** ./app/components/Timer.jsx ***!
   \**********************************/
@@ -28237,17 +28264,83 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 8);
+	var Clock = __webpack_require__(/*! Clock */ 245);
+	var Controls = __webpack_require__(/*! Controls */ 248);
 	
-	module.exports = function () {
-	  return React.createElement(
-	    'div',
-	    null,
-	    'Timer.jsx'
-	  );
-	};
+	var Timer = React.createClass({
+	  displayName: 'Timer',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      count: 0,
+	      countdownStatus: 'stopped'
+	    };
+	  },
+	  startTimer: function startTimer() {
+	    var _this = this;
+	
+	    this.timer = setInterval(function () {
+	      var newCount = _this.state.count + 1;
+	      _this.setState({
+	        count: newCount,
+	        countdownStatus: 'started'
+	      });
+	    }, 1000);
+	  },
+	  stopTimer: function stopTimer() {
+	    clearInterval(this.timer);
+	    this.timer = undefined;
+	  },
+	  handleSetCountdown: function handleSetCountdown(seconds) {
+	    this.setState({
+	      count: seconds,
+	      countdownStatus: 'started'
+	    });
+	  },
+	  handleStatusChange: function handleStatusChange(newStatus) {
+	    this.setState({
+	      countdownStatus: newStatus
+	    });
+	  },
+	  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+	    if (this.state.countdownStatus !== prevState.countdownStatus) {
+	      switch (this.state.countdownStatus) {
+	        case 'started':
+	          this.startTimer();
+	          break;
+	        case 'stopped':
+	          this.setState({ count: 0 });
+	        case 'paused':
+	          this.stopTimer();
+	          break;
+	        default:
+	          break;
+	      }
+	    }
+	  },
+	  render: function render() {
+	    var _state = this.state;
+	    var count = _state.count;
+	    var countdownStatus = _state.countdownStatus;
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        { className: 'page-title' },
+	        'Timer App'
+	      ),
+	      React.createElement(Clock, { totalSeconds: count }),
+	      React.createElement(Controls, { countdownStatus: countdownStatus, onStatusChange: this.handleStatusChange })
+	    );
+	  }
+	});
+	
+	module.exports = Timer;
 
 /***/ },
-/* 249 */
+/* 250 */
 /*!************************************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \************************************************************************************/
@@ -28256,10 +28349,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 250);
+	var content = __webpack_require__(/*! !./../../css-loader!./foundation.min.css */ 251);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 252)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 253)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28276,13 +28369,13 @@
 	}
 
 /***/ },
-/* 250 */
+/* 251 */
 /*!*******************************************************************!*\
   !*** ./~/css-loader!./~/foundation-sites/dist/foundation.min.css ***!
   \*******************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 252)();
 	// imports
 	
 	
@@ -28293,7 +28386,7 @@
 
 
 /***/ },
-/* 251 */
+/* 252 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -28352,7 +28445,7 @@
 
 
 /***/ },
-/* 252 */
+/* 253 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -28607,7 +28700,7 @@
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /*!*************************************************************!*\
   !*** ./~/style-loader!./~/css-loader!./app/styles/app.scss ***!
   \*************************************************************/
@@ -28616,10 +28709,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 254);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./app.scss */ 255);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 252)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 253)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28636,19 +28729,19 @@
 	}
 
 /***/ },
-/* 254 */
+/* 255 */
 /*!********************************************!*\
   !*** ./~/css-loader!./app/styles/app.scss ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 252)();
 	// imports
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 255), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 256), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 257), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_controls.scss */ 258), "");
-	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_page-title.scss */ 259), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./base/_variables.scss */ 256), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_navigation.scss */ 257), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_clock.scss */ 258), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_controls.scss */ 259), "");
+	exports.i(__webpack_require__(/*! -!./../../~/css-loader!./components/_page-title.scss */ 260), "");
 	
 	// module
 	exports.push([module.id, ".menu > li > a {\r\n  display:inline;\r\n  padding: 0;\r\n}", ""]);
@@ -28657,13 +28750,13 @@
 
 
 /***/ },
-/* 255 */
+/* 256 */
 /*!********************************************************!*\
   !*** ./~/css-loader!./app/styles/base/_variables.scss ***!
   \********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 252)();
 	// imports
 	
 	
@@ -28674,13 +28767,13 @@
 
 
 /***/ },
-/* 256 */
+/* 257 */
 /*!***************************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_navigation.scss ***!
   \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 252)();
 	// imports
 	
 	
@@ -28691,13 +28784,13 @@
 
 
 /***/ },
-/* 257 */
+/* 258 */
 /*!**********************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_clock.scss ***!
   \**********************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 252)();
 	// imports
 	
 	
@@ -28708,13 +28801,13 @@
 
 
 /***/ },
-/* 258 */
+/* 259 */
 /*!*************************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_controls.scss ***!
   \*************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 252)();
 	// imports
 	
 	
@@ -28725,13 +28818,13 @@
 
 
 /***/ },
-/* 259 */
+/* 260 */
 /*!***************************************************************!*\
   !*** ./~/css-loader!./app/styles/components/_page-title.scss ***!
   \***************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 251)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 252)();
 	// imports
 	
 	
