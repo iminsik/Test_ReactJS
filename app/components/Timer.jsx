@@ -22,12 +22,6 @@ var Timer = React.createClass({
     clearInterval(this.timer);
     this.timer = undefined;
   },
-  handleSetCountdown: function(seconds) {
-    this.setState({
-      count: seconds,
-      countdownStatus: 'started'
-    });
-  },
   handleStatusChange: function(newStatus) {
     this.setState({
       countdownStatus: newStatus

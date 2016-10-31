@@ -28291,12 +28291,6 @@
 	    clearInterval(this.timer);
 	    this.timer = undefined;
 	  },
-	  handleSetCountdown: function handleSetCountdown(seconds) {
-	    this.setState({
-	      count: seconds,
-	      countdownStatus: 'started'
-	    });
-	  },
 	  handleStatusChange: function handleStatusChange(newStatus) {
 	    this.setState({
 	      countdownStatus: newStatus
